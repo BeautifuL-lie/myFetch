@@ -40,6 +40,7 @@ void get_hostname() {
   fgets(line, sizeof(line), file);
   line[strcspn(line, "\n")] = '\0';
   printf("Hostname: %s\n", line);
+  fclose(file);
 }
 
 int main() {
