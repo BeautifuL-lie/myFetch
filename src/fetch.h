@@ -5,5 +5,6 @@ void get_os();
 void get_kernel();
 void get_hostname();
 void get_shell();
+void get_cpu();
 
 #endif

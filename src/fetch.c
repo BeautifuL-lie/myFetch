@@ -67,3 +67,23 @@ void get_shell() {
     
     printf("Shell: %s\n", ptr + 1);
 }
+
+void get_cpu() {
+    FILE *file = fopen("/proc/cpuinfo", "r");
+
+    if (!file) {
+        printf("CPU: Unknown\n");
+        return;
+    }
+
+    char line[256];
+    while(fgets(line, sizeof(line), file)) {
+        if (strncmp(line, "model name", 10) == 0) {
+            char *value = strchr(line, ':');
+            value[strcspn(value, "\n")] = '\0';
+            printf("CPU: %s\n", value + 2);
+            break;
+        }
+    }
+    fclose(file);
+}
