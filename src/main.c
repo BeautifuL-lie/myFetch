@@ -8,5 +8,6 @@ int main() {
     get_hostname();
     get_shell();
     get_cpu();
+    get_memory();
     return 0;
 }

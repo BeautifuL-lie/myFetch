@@ -87,3 +87,39 @@ void get_cpu() {
     }
     fclose(file);
 }
+
+void get_memory() {
+    FILE *file = fopen("/proc/meminfo", "r");
+
+    if (!file) {
+        printf("Memory: N/A\n");
+        return;
+    }
+
+    char line[256];
+    long mem_total = 0, mem_available = 0;
+    int found = 0;
+    while(fgets(line, sizeof(line), file)) {
+        if (strncmp(line, "MemTotal:", 9) == 0) {
+            sscanf(line, "MemTotal: %ld kB", &mem_total);
+            found++;
+        } else if (strncmp(line, "MemAvailable:", 13) == 0) {
+            sscanf(line, "MemAvailable: %ld kB", &mem_available);
+            found++;
+        }
+        if (found == 2) break;
+    }
+
+    fclose(file);
+    
+     if (mem_total == 0) {
+        printf("Memory: N/A\n");
+        return;
+    }
+
+    double total_gb = mem_total / 1024.0 / 1024.0;
+    double avail_gb = mem_available / 1024.0 / 1024.0;
+    double used_gb = total_gb - avail_gb;
+
+    printf("Memory: %.2f GB / %.2f GB\n", used_gb, total_gb);
+}
