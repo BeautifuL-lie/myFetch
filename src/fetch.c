@@ -120,6 +120,7 @@ void get_memory() {
     double total_gb = mem_total / 1024.0 / 1024.0;
     double avail_gb = mem_available / 1024.0 / 1024.0;
     double used_gb = total_gb - avail_gb;
+    int percentage = used_gb / total_gb * 100;
 
-    printf("Memory: %.2f GB / %.2f GB\n", used_gb, total_gb);
+    printf("Memory: %.2f GB / %.2f GB (%d%%)\n", used_gb, total_gb, percentage);
 }
