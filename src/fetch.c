@@ -14,6 +14,12 @@ void get_user(char *buf, size_t size) {
     snprintf(buf, size, "%s", str);
 }
 
+void get_hostname(char *buf, size_t size) {
+    struct utsname u;
+    uname(&u);
+    snprintf(buf, size, "%s", u.nodename);
+}
+
 void get_os(char *buf, size_t size) {
   FILE *file = fopen("/etc/os-release", "r");
     
@@ -48,22 +54,6 @@ void get_kernel(char *buf, size_t size) {
     struct utsname u;
     uname(&u);
     snprintf(buf, size, "%s %s", u.sysname, u.release);
-}
-
-void get_hostname(char *buf, size_t size) {
-    FILE *file = fopen("/etc/hostname", "r");
-
-    if (!file) {
-        snprintf(buf, size, "Unknown");
-        return;
-    }
-
-    char line[50];
-  
-    fgets(line, sizeof(line), file);
-    line[strcspn(line, "\n")] = '\0';
-    snprintf(buf, size, "%s", line);
-    fclose(file);
 }
 
 void get_shell(char *buf, size_t size) {
