@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 
+void get_user(char *buf, size_t size);
 void get_os(char *buf, size_t size);
 void get_kernel(char *buf, size_t size);
 void get_hostname(char *buf, size_t size);

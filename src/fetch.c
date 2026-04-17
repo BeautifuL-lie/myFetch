@@ -4,6 +4,16 @@
 #include <sys/utsname.h>
 #include "fetch.h"
 
+void get_user(char *buf, size_t size) {
+    char *str = getenv("USER");
+
+    if (!str) {
+        return;
+    }
+
+    snprintf(buf, size, "%s", str);
+}
+
 void get_os(char *buf, size_t size) {
   FILE *file = fopen("/etc/os-release", "r");
     
