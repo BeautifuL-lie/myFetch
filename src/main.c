@@ -15,25 +15,25 @@ int main() {
 
     get_user(user, sizeof(user));
     get_hostname(hostname, sizeof(hostname));
-    printf("%s@%s\n", user, hostname);
+    printf("\033[0;34m%s@%s\033[0m\n", user, hostname);
 
     get_os(os, sizeof(os));
-    printf("os\t%s\n", os);
+    printf("\033[0;33mos\033[0m\t%s\n", os);
 
     get_kernel(kernel, sizeof(kernel));
-    printf("kernel\t%s\n", kernel);
+    printf("\033[0;33mkernel\033[0m\t%s\n", kernel);
 
     get_shell(shell, sizeof(shell));
-    printf("shell\t%s\n", shell);
+    printf("\033[0;33mshell\033[0m\t%s\n", shell);
     
     get_cpu(cpu, sizeof(cpu));
-    printf("cpu\t%s\n", cpu);
+    printf("\033[0;33mcpu\033[0m\t%s\n", cpu);
 
     get_memory(memory, sizeof(memory));
-    printf("memory\t%s\n", memory);
+    printf("\033[0;33mmemory\033[0m\t%s\n", memory);
 
     get_uptime(uptime, sizeof(uptime));
-    printf("uptime\t%s\n", uptime);
+    printf("\033[0;33muptime\033[0m\t%s\n", uptime);
     
     return 0;
 }
