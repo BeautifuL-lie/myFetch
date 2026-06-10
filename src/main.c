@@ -26,7 +26,7 @@ char *getconf() {
 
     if (xdg_dir) {
         snprintf(path, sizeof(path), "%s/myfetch/config", xdg_dir);
-    } else if (!xdg_dir && home_dir) {
+    } else if (home_dir) {
         snprintf(path, sizeof(path), "%s/.config/myfetch/config", home_dir);
     } else {
         // printf("CONFIG DIR NOT FOUND\n");
