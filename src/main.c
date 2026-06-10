@@ -25,7 +25,7 @@ char *getconf() {
     char *home_dir = getenv("HOME");
 
     if (xdg_dir) {
-        snprintf(path, sizeof(path), "%s/myfetch/myfetch/config", xdg_dir);
+        snprintf(path, sizeof(path), "%s/myfetch/config", xdg_dir);
     } else if (!xdg_dir && home_dir) {
         snprintf(path, sizeof(path), "%s/.config/myfetch/config", home_dir);
     } else {
