@@ -39,6 +39,7 @@ char *getconf() {
         // printf("CONFIG FILE NOT FOUND\n");
         return NULL;
     }
+    fclose(conf);
 
     return path;
 }
@@ -79,4 +80,5 @@ void printinfo(char *conf) {
             printf("\033[0;33muptime\033[0m\t%s\n", ptr->uptime);
         }
     }
+    fclose(config_file);
 }
