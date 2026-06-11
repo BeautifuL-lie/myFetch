@@ -25,6 +25,7 @@ char *getconf() {
     char *xdg_dir = getenv("XDG_CONFIG_HOME");
     char *home_dir = getenv("HOME");
     char *default_dir = "/etc/xdg/myfetch/config";
+    char *relative_dir = "config/config";
 
     if (xdg_dir) {
         snprintf(path, sizeof(path), "%s/myfetch/config", xdg_dir);
@@ -42,6 +43,10 @@ char *getconf() {
 
     if (access(default_dir, F_OK | R_OK) == 0) {
         return default_dir;
+    }
+
+    if (access(relative_dir, F_OK | R_OK) == 0) {
+        return relative_dir;
     }
 
     return NULL;
