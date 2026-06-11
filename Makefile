@@ -28,8 +28,10 @@ run: $(TARGET)
 
 install: $(TARGET)
 	install -m 755 $(TARGET) /usr/bin/$(TARGET)
+	mkdir -p /etc/xdg/myfetch && cp config/config /etc/xdg/myfetch
 
 uninstall:
 	rm -f /usr/bin/$(TARGET)
+	rm -rf /etc/xdg/myfetch
 
 .PHONY: all clean run install uninstall
