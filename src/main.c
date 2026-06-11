@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 char *getconf();
 void printinfo(char *conf);
@@ -26,22 +27,19 @@ char *getconf() {
 
     if (xdg_dir) {
         snprintf(path, sizeof(path), "%s/myfetch/config", xdg_dir);
-    } else if (home_dir) {
+        if (access(path, F_OK | R_OK) == 0) {
+            return path;
+        }
+    }
+
+    if (home_dir) {
         snprintf(path, sizeof(path), "%s/.config/myfetch/config", home_dir);
-    } else {
-        // printf("CONFIG DIR NOT FOUND\n");
-        return NULL;
+        if (access(path, F_OK | R_OK) == 0) {
+            return path;
+        }
     }
 
-    FILE *conf = fopen(path, "r");
-
-    if (!conf) {
-        // printf("CONFIG FILE NOT FOUND\n");
-        return NULL;
-    }
-    fclose(conf);
-
-    return path;
+    return NULL;
 }
 
 void printinfo(char *conf) {
