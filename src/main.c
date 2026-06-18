@@ -6,8 +6,24 @@
 
 char *getconf();
 void printinfo(char *conf);
+void clearscreen();
 
-int main() {
+int clrscr = 0;
+
+int main(int argc, char *argv[]) {
+    int opt;
+
+    while ((opt = getopt(argc, argv, "c")) != -1) {
+        switch (opt) {
+            case 'c':
+                clrscr = 1;
+                break;
+            case '?':
+                fprintf(stderr, "'-%c' is not a valid option\n", optopt);
+                return 1;
+        }
+    }
+
     putchar('\n');
     char *conf = getconf();
 
@@ -18,6 +34,12 @@ int main() {
     printinfo(conf);
 
     return 0;
+}
+
+void clearscreen() {
+    // \e[1;1H moves cursor to row 1, column 1
+    // \e[2J clears the entire screen
+    printf("\e[1;1H\e[2J"); 
 }
 
 char *getconf() {
@@ -63,6 +85,11 @@ void printinfo(char *conf) {
     }
 
     get_info(ptr);
+
+    if (clrscr) {
+        clearscreen();
+        putchar('\n');
+    }
 
     char line[256];
     while (fgets(line, sizeof(line), config_file) != NULL) {
