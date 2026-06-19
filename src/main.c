@@ -1,12 +1,13 @@
-#include "fetch.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+#include "fetch.h"
+#include "utils.h"
+
 char *getconf();
 void printinfo(char *conf);
-void clearscreen();
 
 int clrscr = 0;
 
@@ -34,12 +35,6 @@ int main(int argc, char *argv[]) {
     printinfo(conf);
 
     return 0;
-}
-
-void clearscreen() {
-    // \e[1;1H moves cursor to row 1, column 1
-    // \e[2J clears the entire screen
-    printf("\e[1;1H\e[2J"); 
 }
 
 char *getconf() {
