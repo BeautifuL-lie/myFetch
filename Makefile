@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Isrc
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/fetch.c
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 TARGET = myfetch
