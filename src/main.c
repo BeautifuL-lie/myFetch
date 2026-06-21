@@ -9,6 +9,7 @@ int clrscr = 0;
 
 int main(int argc, char *argv[]) {
     int opt;
+    opterr = 0;
 
     while ((opt = getopt(argc, argv, "ch")) != -1) {
         switch (opt) {
@@ -19,7 +20,8 @@ int main(int argc, char *argv[]) {
                 printusage(argv[0]);
                 return 0;
             case '?':
-                fprintf(stderr, "'-%c' is not a valid option\n", optopt);
+                fprintf(stderr, "\n'-%c' is not a valid option\n", optopt);
+                printusage(argv[0]);
                 return 1;
         }
     }
