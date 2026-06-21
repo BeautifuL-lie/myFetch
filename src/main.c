@@ -3,17 +3,21 @@
 
 #include "config.h"
 #include "print.h"
+#include "utils.h"
 
 int clrscr = 0;
 
 int main(int argc, char *argv[]) {
     int opt;
 
-    while ((opt = getopt(argc, argv, "c")) != -1) {
+    while ((opt = getopt(argc, argv, "ch")) != -1) {
         switch (opt) {
             case 'c':
                 clrscr = 1;
                 break;
+            case 'h':
+                printusage(argv[0]);
+                return 0;
             case '?':
                 fprintf(stderr, "'-%c' is not a valid option\n", optopt);
                 return 1;
