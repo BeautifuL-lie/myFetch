@@ -6,12 +6,14 @@
 #include "utils.h"
 
 int clrscr = 0;
+int customconf = 0;
 
 int main(int argc, char *argv[]) {
     int opt;
     opterr = 0;
+    char *custom_path_config;
 
-    while ((opt = getopt(argc, argv, "ch")) != -1) {
+    while ((opt = getopt(argc, argv, ":chf:")) != -1) {
         switch (opt) {
             case 'c':
                 clrscr = 1;
@@ -19,6 +21,13 @@ int main(int argc, char *argv[]) {
             case 'h':
                 printusage(argv[0]);
                 return 0;
+            case 'f':
+                customconf = 1;
+                custom_path_config = optarg;
+                break;
+            case ':':
+                printf("\nOption '-%c' needs argument\n", optopt);
+                return 1;
             case '?':
                 fprintf(stderr, "\n'-%c' is not a valid option\n", optopt);
                 printusage(argv[0]);
@@ -27,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
 
     putchar('\n');
-    char *conf = getconf();
+    char *conf = customconf ? custom_path_config : getconf(); 
 
     if (conf == NULL) {
         printf("NO VALID CONFIG\n");
