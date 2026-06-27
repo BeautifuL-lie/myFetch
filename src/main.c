@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     putchar('\n');
     char *conf = customconf ? custom_path_config : getconf(); 
 
-    if (conf == NULL) {
+    if (conf == NULL && customconf == 0) {
         printf("No valid config\n");
         return 1;
     }
