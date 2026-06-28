@@ -154,6 +154,19 @@ void get_uptime(Info *ptr) {
     }
 }
 
+void get_chasis(Info *ptr) {
+    FILE *file = fopen("/sys/class/dmi/id/chassis_vendor", "r");
+    if (!file) {
+        snprintf(ptr->chasis, sizeof(ptr->chasis), "N/A");
+        return;
+    }
+    
+    char buf[128];
+    fgets(buf, sizeof(buf), file);
+    buf[strcspn(buf, "\n")] = '\0';
+    snprintf(ptr->chasis, sizeof(ptr->chasis), "%s", buf);
+}
+
 void get_info(Info *ptr) {
     get_user(ptr);
     get_hostname(ptr);
@@ -163,4 +176,5 @@ void get_info(Info *ptr) {
     get_cpu(ptr);
     get_memory(ptr);
     get_uptime(ptr);
+    get_chasis(ptr);
 }

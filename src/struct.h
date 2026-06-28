@@ -10,6 +10,7 @@ typedef struct {
     char cpu[256];
     char memory[128];
     char uptime[128];
+    char chasis[128];
 } Info;
 
 #endif

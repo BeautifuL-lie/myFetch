@@ -44,6 +44,8 @@ void printinfo(char *conf) {
             printf("\033[0;33mmemory\033[0m\t%s\n", ptr->memory);
         } else if (strcmp(line, "uptime") == 0) {
             printf("\033[0;33muptime\033[0m\t%s\n", ptr->uptime);
+        } else if (strcmp(line, "chasis") == 0) {
+            printf("\033[0;33mchasis\033[0m\t%s\n", ptr->chasis);
         }
     }
     fclose(config_file);
