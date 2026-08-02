@@ -1,12 +1,12 @@
+#include "fetch.h"
+#include "struct.h"
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
-#include <pwd.h>
 #include <unistd.h>
-#include "fetch.h"
-#include "struct.h"
 
 void get_user(Info *ptr) {
     struct passwd *pw = getpwuid(getuid());
@@ -25,8 +25,8 @@ void get_hostname(Info *ptr) {
 }
 
 void get_os(Info *ptr) {
-  FILE *file = fopen("/etc/os-release", "r");
-    
+    FILE *file = fopen("/etc/os-release", "r");
+
     if (!file) {
         snprintf(ptr->os, sizeof(ptr->os), "Unknown");
         return;
@@ -36,11 +36,13 @@ void get_os(Info *ptr) {
     while (fgets(line, sizeof(line), file)) {
         if (strncmp(line, "PRETTY_NAME=", 12) == 0) {
             char *value = strchr(line, '=');
-            if (!value) break;
+            if (!value)
+                break;
 
             value++;
             value[strcspn(value, "\n")] = '\0';
-            if (*value == '"') value++;
+            if (*value == '"')
+                value++;
 
             size_t len = strlen(value);
             if (len > 0 && value[len - 1] == '"') {
@@ -68,12 +70,12 @@ void get_shell(Info *ptr) {
         return;
     }
 
-    char* p = strrchr(str, '/');
+    char *p = strrchr(str, '/');
     if (!p) {
         snprintf(ptr->shell, sizeof(ptr->shell), "%s", str);
         return;
     }
-    
+
     p++;
     snprintf(ptr->shell, sizeof(ptr->shell), "%s", p);
 }
@@ -87,7 +89,7 @@ void get_cpu(Info *ptr) {
     }
 
     char line[256];
-    while(fgets(line, sizeof(line), file)) {
+    while (fgets(line, sizeof(line), file)) {
         if (strncmp(line, "model name", 10) == 0) {
             char *value = strchr(line, ':');
             value[strcspn(value, "\n")] = '\0';
@@ -110,7 +112,7 @@ void get_memory(Info *ptr) {
     char line[256];
     long mem_total = 0, mem_available = 0;
     int found = 0;
-    while(fgets(line, sizeof(line), file)) {
+    while (fgets(line, sizeof(line), file)) {
         if (strncmp(line, "MemTotal:", 9) == 0) {
             sscanf(line, "MemTotal: %ld kB", &mem_total);
             found++;
@@ -118,12 +120,13 @@ void get_memory(Info *ptr) {
             sscanf(line, "MemAvailable: %ld kB", &mem_available);
             found++;
         }
-        if (found == 2) break;
+        if (found == 2)
+            break;
     }
 
     fclose(file);
-    
-     if (mem_total == 0) {
+
+    if (mem_total == 0) {
         snprintf(ptr->memory, sizeof(ptr->memory), "N/A");
         return;
     }
@@ -133,7 +136,8 @@ void get_memory(Info *ptr) {
     double used_gb = total_gb - avail_gb;
     int percentage = used_gb / total_gb * 100;
 
-    snprintf(ptr->memory, sizeof(ptr->memory), "%.2f GB / %.2f GB (%d%%)", used_gb, total_gb, percentage);
+    snprintf(ptr->memory, sizeof(ptr->memory), "%.2f GB / %.2f GB (%d%%)",
+             used_gb, total_gb, percentage);
 }
 
 void get_uptime(Info *ptr) {
@@ -149,7 +153,8 @@ void get_uptime(Info *ptr) {
             snprintf(ptr->uptime, sizeof(ptr->uptime), "%ld minutes", minutes);
         } else {
             minutes = (seconds % 3600) / 60;
-            snprintf(ptr->uptime, sizeof(ptr->uptime), "%ld hours %ld minutes", hours, minutes);
+            snprintf(ptr->uptime, sizeof(ptr->uptime), "%ld hours %ld minutes",
+                     hours, minutes);
         }
     }
 }
@@ -160,7 +165,7 @@ void get_chasis(Info *ptr) {
         snprintf(ptr->chasis, sizeof(ptr->chasis), "N/A");
         return;
     }
-    
+
     char buf[128];
     fgets(buf, sizeof(buf), file);
     buf[strcspn(buf, "\n")] = '\0';

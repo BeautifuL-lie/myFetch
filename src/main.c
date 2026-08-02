@@ -15,28 +15,28 @@ int main(int argc, char *argv[]) {
 
     while ((opt = getopt(argc, argv, ":chf:")) != -1) {
         switch (opt) {
-            case 'c':
-                clrscr = 1;
-                break;
-            case 'h':
-                printusage(argv[0]);
-                return 0;
-            case 'f':
-                customconf = 1;
-                custom_path_config = optarg;
-                break;
-            case ':':
-                printf("\nOption '-%c' needs argument\n", optopt);
-                return 1;
-            case '?':
-                fprintf(stderr, "\n'-%c' is not a valid option\n", optopt);
-                printusage(argv[0]);
-                return 1;
+        case 'c':
+            clrscr = 1;
+            break;
+        case 'h':
+            printusage(argv[0]);
+            return 0;
+        case 'f':
+            customconf = 1;
+            custom_path_config = optarg;
+            break;
+        case ':':
+            printf("\nOption '-%c' needs argument\n", optopt);
+            return 1;
+        case '?':
+            fprintf(stderr, "\n'-%c' is not a valid option\n", optopt);
+            printusage(argv[0]);
+            return 1;
         }
     }
 
     putchar('\n');
-    char *conf = customconf ? custom_path_config : getconf(); 
+    char *conf = customconf ? custom_path_config : getconf();
 
     if (conf == NULL && customconf == 0) {
         printf("No valid config\n");

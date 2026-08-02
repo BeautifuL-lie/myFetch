@@ -33,4 +33,3 @@ char *getconf() {
 
     return NULL;
 }
-

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "fetch.h"
 #include "struct.h"
 #include "utils.h"
-#include "fetch.h"
 
 void printinfo(char *conf) {
     Info p = {0};
