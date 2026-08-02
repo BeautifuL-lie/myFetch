@@ -5,6 +5,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = $(wildcard $(SRC_DIR)/*.c)
+ASRCS = $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 TARGET = myfetch
@@ -33,5 +34,11 @@ install: $(TARGET)
 uninstall:
 	rm -f /usr/bin/$(TARGET)
 	rm -rf /etc/xdg/myfetch
+
+format:
+	clang-format -i --style=file $(ASRCS)
+
+check-format:
+	clang-format --dry-run --Werror --style=file $(ASRCS)
 
 .PHONY: all clean run install uninstall
