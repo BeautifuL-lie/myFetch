@@ -19,7 +19,6 @@ void printinfo(char *conf) {
     extern int clrscr;
     if (clrscr) {
         clearscreen();
-        putchar('\n');
     }
 
     char line[256];

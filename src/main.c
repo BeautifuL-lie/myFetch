@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    putchar('\n');
     char *conf = customconf ? custom_path_config : getconf();
 
     if (conf == NULL && customconf == 0) {
