@@ -172,14 +172,27 @@ void get_chasis(Info *ptr) {
     snprintf(ptr->chasis, sizeof(ptr->chasis), "%s", buf);
 }
 
-void get_info(Info *ptr) {
-    get_user(ptr);
-    get_hostname(ptr);
-    get_os(ptr);
-    get_kernel(ptr);
-    get_shell(ptr);
-    get_cpu(ptr);
-    get_memory(ptr);
-    get_uptime(ptr);
-    get_chasis(ptr);
+void get_info(Info *ptr, char *mod[]) {
+    int i = 0;
+    while (mod[i] != NULL) {
+        if (strcmp(mod[i], "hostname") == 0) {
+            get_user(ptr);
+            get_hostname(ptr);
+        } else if (strcmp(mod[i], "os") == 0) {
+            get_os(ptr);
+        } else if (strcmp(mod[i], "kernel") == 0) {
+            get_kernel(ptr);
+        } else if (strcmp(mod[i], "shell") == 0) {
+            get_shell(ptr);
+        } else if (strcmp(mod[i], "cpu") == 0) {
+            get_cpu(ptr);
+        } else if (strcmp(mod[i], "memory") == 0) {
+            get_memory(ptr);
+        } else if (strcmp(mod[i], "uptime") == 0) {
+            get_uptime(ptr);
+        } else if (strcmp(mod[i], "chasis") == 0) {
+            get_chasis(ptr);
+        }
+        i++;
+    }
 }

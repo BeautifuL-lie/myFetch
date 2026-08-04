@@ -4,6 +4,6 @@
 #include "struct.h"
 #include <stddef.h>
 
-void get_info(Info *ptr);
+void get_info(Info *ptr, char *mod[]);
 
 #endif

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "config.h"
 #include "fetch.h"
 #include "struct.h"
 #include "utils.h"
@@ -8,6 +9,7 @@
 void printinfo(char *conf) {
     Info p = {0};
     Info *ptr = &p;
+    char *mod[20];
 
     FILE *config_file = fopen(conf, "r");
     if (!config_file) {
@@ -15,7 +17,9 @@ void printinfo(char *conf) {
         return;
     }
 
-    get_info(ptr);
+    getusedmodules(config_file, mod);
+    get_info(ptr, mod);
+    rewind(config_file);
     extern int clrscr;
     if (clrscr) {
         clearscreen();
