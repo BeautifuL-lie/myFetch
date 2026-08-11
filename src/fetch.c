@@ -63,21 +63,21 @@ void get_kernel(Info *ptr) {
 }
 
 void get_shell(Info *ptr) {
-    char *str = getenv("SHELL");
+    char buf[256];
+    char proc[64];
+    char shell[64];
 
-    if (!str) {
-        snprintf(ptr->shell, sizeof(ptr->shell), "Unknown");
+    pid_t ppid = getppid();
+    snprintf(proc, sizeof(proc), "/proc/%d/stat", ppid);
+
+    FILE *file = fopen(proc, "r");
+    if (!file) {
         return;
     }
 
-    char *p = strrchr(str, '/');
-    if (!p) {
-        snprintf(ptr->shell, sizeof(ptr->shell), "%s", str);
-        return;
-    }
-
-    p++;
-    snprintf(ptr->shell, sizeof(ptr->shell), "%s", p);
+    fgets(buf, sizeof(buf), file);
+    sscanf(buf, "%*d (%[^)])", shell);
+    snprintf(ptr->shell, sizeof(ptr->shell), "%s", shell);
 }
 
 void get_cpu(Info *ptr) {

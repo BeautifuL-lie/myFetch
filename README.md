@@ -26,6 +26,7 @@ myfetch
 ```
 make run
 ```
+(the shell will be 'make')
 
 ## Uninstall
 To uninstall it, run:
