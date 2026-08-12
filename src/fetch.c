@@ -136,7 +136,7 @@ void get_memory(Info *ptr) {
     double used_gb = total_gb - avail_gb;
     int percentage = used_gb / total_gb * 100;
 
-    snprintf(ptr->memory, sizeof(ptr->memory), "%.2f GB / %.2f GB (%d%%)",
+    snprintf(ptr->memory, sizeof(ptr->memory), "%.2f GiB / %.2f GiB (%d%%)",
              used_gb, total_gb, percentage);
 }
 
